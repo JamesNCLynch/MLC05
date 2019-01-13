@@ -1,0 +1,81 @@
+﻿@model MLC05.Models.ClassTimetableViewModel
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create</h2>
+
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+<div class="form-horizontal">
+    <h4>ClassTimetable</h4>
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    
+    <div class="form-group">
+        @Html.LabelFor(model => model.ScheduledClassType, new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownListFor(model => model.ScheduledClassId, Model.ScheduledClassTypeSelectListItems)
+            @Html.ValidationMessageFor(model => model.ScheduledClassType)
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.StartTimeHours, new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownListFor(m => m.StartTimeHours, Enumerable.Range(7, 15).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() }))
+            @Html.ValidationMessageFor(model => model.StartTimeHours)
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.StartTimeMinutes, new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownListFor(m => m.StartTimeMinutes, Enumerable.Range(0, 46).Where(m => m % 15 == 0).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() }))
+            @Html.ValidationMessageFor(model => model.StartTimeMinutes)
+        </div>
+    </div>
+    
+    <div class="form-group">
+        @Html.LabelFor(model => model.EndTimeHours, new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownListFor(m => m.EndTimeHours, Enumerable.Range(7, 15).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() }))
+            @Html.ValidationMessageFor(model => model.EndTimeHours)
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.EndTimeMinutes, new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownListFor(m => m.EndTimeMinutes, Enumerable.Range(0, 46).Where(m => m % 15 == 0).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() }))
+            @Html.ValidationMessageFor(model => model.EndTimeMinutes)
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Weekday, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EnumDropDownListFor(model => model.Weekday)
+            @Html.ValidationMessageFor(model => model.Weekday, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Create" class="btn btn-default" />
+        </div>
+    </div>
+</div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

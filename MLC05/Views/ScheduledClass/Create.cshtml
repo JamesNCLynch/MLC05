@@ -1,0 +1,65 @@
+﻿@model MLC05.Models.ScheduledClassViewModel
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create</h2>
+@Html.DisplayFor(model => model.ScheduledClassType.Name)
+@Html.DisplayFor(model => model.StartDateTime)
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    @Html.HiddenFor(model => model.ScheduledClassType.Name)
+    @Html.HiddenFor(model => model.StartDateTime)
+
+    <div class="form-horizontal">
+        <h4>ScheduledClass</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.InstructorId, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(m => m.InstructorId, Model.InstructorListSelectListItems)
+                @Html.ValidationMessageFor(model => model.InstructorId)
+            </div>
+        </div>
+
+        <div class="hidden form-group">
+            @* Create hidden fields here *@
+            <div class="col-md-10">
+                @Html.HiddenFor(model => model.ScheduledClassType, Model.ScheduledClassType)
+                @Html.ValidationMessageFor(model => model.ScheduledClassType)
+            </div>
+            <div class="col-md-10">
+                @Html.HiddenFor(model => model.StartDateTime, Model.StartDateTime)
+                @Html.ValidationMessageFor(model => model.StartDateTime)
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $('.datepicker').datepicker({
+                format: 'lll'
+            });
+        });
+    </script>
+    @Scripts.Render("~/bundles/jqueryval")
+}

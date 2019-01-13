@@ -1,0 +1,202 @@
+﻿@using MLC05.Models
+@model IEnumerable<MLC05.Models.ClassTimetableGridViewModel>
+
+@{
+    ViewBag.Title = "Class Timetable Layout";
+}
+
+<h2>Class Timetable Layout</h2>
+
+<table class="table col-md-10">
+    <tr>
+        <th class="col-md-2 text-center">
+
+        </th>
+        <th class="col-md-1 text-center">
+            Monday
+        </th>
+        <th class="col-md-1 text-center">
+            Tuesday
+        </th>
+        <th class="col-md-1 text-center">
+            Wednesday
+        </th>
+        <th class="col-md-1 text-center">
+            Thursday
+        </th>
+        <th class="col-md-1 text-center">
+            Friday
+        </th>
+        <th class="col-md-1 text-center">
+            Saturday
+        </th>
+        <th class="col-md-1 text-center">
+            Sunday
+        </th>
+    </tr>
+
+    @foreach (var gridRow in Model)
+    {
+        <tr>
+            <td class="text-center">
+                @gridRow.TimeRange
+            </td>
+            <td class="text-center">
+
+                @if (gridRow.MondayClass != null)
+                {
+                    <div style="background-color: @gridRow.MondayClass.ScheduledClassColour">
+                        <div>
+                            @Html.DisplayFor(x => gridRow.MondayClass.ClassName)
+                        </div>
+                        <div>
+                            @Html.DisplayFor(x => gridRow.MondayClass.TimeSpan)
+                        </div>
+                        <div>
+                            @Html.ActionLink("Edit", "Edit", new { id = gridRow.MondayClass.ScheduledClassTypeId })
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    @Html.ActionLink("Create", "Create", new { weekday = 1, startHour = gridRow.TimeRange.Substring(0, 2) })
+                }
+
+            </td>
+            <td class="text-center">
+
+                @if (gridRow.TuesdayClass != null)
+                {
+                    <div style="background-color: @gridRow.TuesdayClass.ScheduledClassColour">
+                        <div>
+                            @Html.DisplayFor(x => gridRow.TuesdayClass.ClassName)
+                        </div>
+                        <div>
+                            @Html.DisplayFor(x => gridRow.TuesdayClass.TimeSpan)
+                        </div>
+                        <div>
+                            @Html.ActionLink("Edit", "Edit", new { id = gridRow.TuesdayClass.ScheduledClassTypeId })
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    @Html.ActionLink("Create", "Create", new { weekday = 2, startHour = gridRow.TimeRange.Substring(0, 2) })
+                }
+
+            </td>
+            <td class="text-center">
+
+                @if (gridRow.WednesdayClass != null)
+                {
+                    <div style="background-color: @gridRow.WednesdayClass.ScheduledClassColour">
+                        <div>
+                            @Html.DisplayFor(x => gridRow.WednesdayClass.ClassName)
+                        </div>
+                        <div>
+                            @Html.DisplayFor(x => gridRow.WednesdayClass.TimeSpan)
+                        </div>
+                        <div>
+                            @Html.ActionLink("Edit", "Edit", new { id = gridRow.WednesdayClass.ScheduledClassTypeId })
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    @Html.ActionLink("Create", "Create", new { weekday = 3, startHour = gridRow.TimeRange.Substring(0, 2) })
+                }
+
+            </td>
+            <td class="text-center">
+
+                @if (gridRow.ThursdayClass != null)
+                {
+                    <div style="background-color: @gridRow.ThursdayClass.ScheduledClassColour">
+                        <div>
+                            @Html.DisplayFor(x => gridRow.ThursdayClass.ClassName)
+                        </div>
+                        <div>
+                            @Html.DisplayFor(x => gridRow.ThursdayClass.TimeSpan)
+                        </div>
+                        <div>
+                            @Html.ActionLink("Edit", "Edit", new { id = gridRow.ThursdayClass.ScheduledClassTypeId })
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    @Html.ActionLink("Create", "Create", new { weekday = 4, startHour = gridRow.TimeRange.Substring(0, 2) })
+                }
+
+            </td>
+            <td class="text-center">
+
+                @if (gridRow.FridayClass != null)
+                {
+                    <div style="background-color: @gridRow.FridayClass.ScheduledClassColour">
+                        <div>
+                            @Html.DisplayFor(x => gridRow.FridayClass.ClassName)
+                        </div>
+                        <div>
+                            @Html.DisplayFor(x => gridRow.FridayClass.TimeSpan)
+                        </div>
+                        <div>
+                            @Html.ActionLink("Edit", "Edit", new { id = gridRow.FridayClass.ScheduledClassTypeId })
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    @Html.ActionLink("Create", "Create", new { weekday = 5, startHour = gridRow.TimeRange.Substring(0, 2) })
+                }
+
+            </td>
+            <td class="text-center">
+
+                @if (gridRow.SaturdayClass != null)
+                {
+                    <div style="background-color: @gridRow.SaturdayClass.ScheduledClassColour">
+                        <div>
+                            @Html.DisplayFor(x => gridRow.SaturdayClass.ClassName)
+                        </div>
+                        <div>
+                            @Html.DisplayFor(x => gridRow.SaturdayClass.TimeSpan)
+                        </div>
+                        <div>
+                            @Html.ActionLink("Edit", "Edit", new { id = gridRow.SaturdayClass.ScheduledClassTypeId })
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    @Html.ActionLink("Create", "Create", new { weekday = 6, startHour = gridRow.TimeRange.Substring(0, 2) })
+                }
+
+            </td>
+            <td class="text-center">
+
+                @if (gridRow.SundayClass != null)
+                {
+                    <div style="background-color: @gridRow.SundayClass.ScheduledClassColour">
+                        <div>
+                            @Html.DisplayFor(x => gridRow.SundayClass.ClassName)
+                        </div>
+                        <div>
+                            @Html.DisplayFor(x => gridRow.SundayClass.TimeSpan)
+                        </div>
+                        <div>
+                            @Html.ActionLink("Edit", "Edit", new { id = gridRow.SundayClass.ScheduledClassTypeId })
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    @Html.ActionLink("Create", "Create", new { weekday = 0, startHour = gridRow.TimeRange.Substring(0, 2) })
+                }
+
+            </td>
+        </tr>
+    }
+</table>
+
+

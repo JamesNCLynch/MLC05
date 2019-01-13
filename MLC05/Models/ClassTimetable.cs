@@ -11,17 +11,6 @@ namespace MLC05.Models
         public ScheduledClassType ScheduledClassType { get; set; }
         public DateTime StartTime { get; set; }
         public DateTime EndTime { get; set; }
-        public Weekdays Weekday { get; set; }
-    }
-
-    public enum Weekdays
-    {
-        Monday,
-        Tuesday,
-        Wednesday,
-        Thursday,
-        Friday,
-        Saturday,
-        Sunday
+        public DayOfWeek Weekday { get; set; }
     }
 }

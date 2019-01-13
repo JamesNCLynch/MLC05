@@ -34,6 +34,8 @@ namespace MLC05.Models
         public virtual DbSet<ScheduledClassType> ScheduledClassTypes { get; set; }
         public virtual DbSet<ClassTimetable> ClassTimetable { get; set; }
 
+        public virtual DbSet<IdentityUserRole> UserRoles { get; set; }
+
         public static ApplicationDbContext Create()
         {
             return new ApplicationDbContext();

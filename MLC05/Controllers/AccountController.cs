@@ -9,6 +9,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using MLC05.Models;
+using MLC05.Helpers;
 
 namespace MLC05.Controllers
 {
@@ -162,6 +163,8 @@ namespace MLC05.Controllers
                     // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+
+                    await UserManager.AddToRoleAsync(user.Id, RoleNameHelper.AttendeeName);
 
                     return RedirectToAction("Index", "Home");
                 }

@@ -1,12 +1,12 @@
-﻿<!DOCTYPE html>
+﻿@using MLC05.Models
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <title>@ViewBag.Title - Class Booking Service</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
-
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
@@ -21,9 +21,32 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                    @if (User.IsInRole(MLC05.Helpers.RoleNameHelper.AdminName))
+                    {
+                        <li>@Html.ActionLink("Class Types", "Index", "ScheduledClassTypes")</li>
+                        <li>@Html.ActionLink("Classes", "Index", "ScheduledClass")</li>
+                        <li>@Html.ActionLink("Timetable", "Index", "ClassTimetable")</li>
+                    }
+                    else
+                    {
+                        <li>@Html.ActionLink("About", "About", "Home")</li>
+                        <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                    }
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Classes<span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            @{
+                                var menu = ScheduledClassTypeMenuViewModel.GetMenu();
+                                if (menu != null && menu.Any())
+                                {
+                                    foreach (var item in menu)
+                                    {
+                                        <li>@Html.ActionLink($"{item.Name}", $"Details/{item.Id}", "ScheduledClassTypes")</li>
+                                    }
+                                }
+                            }
+                        </ul>
+                    </li>
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>
@@ -33,12 +56,14 @@
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+            <p>&copy; @DateTime.Now.Year - Mitchelstown Leisure Centre</p>
         </footer>
     </div>
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
+    @Styles.Render("~/Content/datepicker")
+    @Scripts.Render("~/bundles/datePicker")
     @RenderSection("scripts", required: false)
 </body>
 </html>

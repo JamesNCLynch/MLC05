@@ -10,6 +10,9 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using MLC05.Models;
 using MLC05.Helpers;
+using System.Collections.Generic;
+using System.Net;
+using System.Data.Entity;
 
 namespace MLC05.Controllers
 {
@@ -76,7 +79,19 @@ namespace MLC05.Controllers
 
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
-            var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
+            
+            var userNameForLogin = "";
+            if (model.Email == null)
+            {
+                userNameForLogin = model.UserName;
+            }
+            else if (model.UserName == null)
+            {
+                userNameForLogin = UserManager.Users.FirstOrDefault(x => x.Email == model.Email).UserName;
+            }
+
+
+            var result = await SignInManager.PasswordSignInAsync(userNameForLogin, model.Password, model.RememberMe, shouldLockout: false);
             switch (result)
             {
                 case SignInStatus.Success:
@@ -152,7 +167,13 @@ namespace MLC05.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var user = new ApplicationUser {
+                    UserName = model.UserName,
+                    Email = model.Email,
+                    FirstName = model.FirstName,
+                    LastName = model.LastName,
+                    DateCreated = DateTime.UtcNow
+                };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
@@ -404,6 +425,131 @@ namespace MLC05.Controllers
         public ActionResult ExternalLoginFailure()
         {
             return View();
+        }
+
+        [Authorize(Roles = RoleNameHelper.AdminName)]
+        public async Task<ActionResult> Index(string sortOrder, string role)
+        {
+            ViewBag.NameSortParm = string.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            ViewBag.DateSortParm = sortOrder == "date" ? "date_desc" : "date";
+            ViewBag.RoleSortParm = sortOrder == "role" ? "role_desc" : "role";
+
+            var users = await UserManager.Users.ToListAsync();
+
+            if (!string.IsNullOrEmpty(role))
+            {
+                users = users.Where(x => x.Roles.FirstOrDefault().RoleId == role).ToList();
+            }
+
+            switch (sortOrder)
+            {
+                case "name_desc":
+                    users = users.OrderByDescending(x => x.UserName).ToList();
+                    break;
+                case "date":
+                    users = users.OrderBy(x => x.DateCreated).ToList();
+                    break;
+                case "date_desc":
+                    users = users.OrderByDescending(x => x.DateCreated).ToList();
+                    break;
+                case "role":
+                    users = users.OrderBy(x => x.Roles.FirstOrDefault().RoleId).ToList();
+                    break;
+                case "role_desc":
+                    users = users.OrderBy(x => x.Roles.FirstOrDefault().RoleId).ToList();
+                    break;
+                default:
+                    users = users.OrderBy(x => x.UserName).ToList();
+                    break;
+            }
+
+            return View(users.ToList());
+        }
+
+        [HttpGet]
+        [Authorize(Roles = RoleNameHelper.AdminName)]
+        public async Task<ActionResult> Edit(string userId)
+        {
+            if (userId == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            var user = await UserManager.FindByIdAsync(userId);
+            if (user == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.NotFound);
+            }
+            
+            return View(new EditUserViewModel(user));
+        }
+
+        [HttpPost]
+        [Authorize(Roles = RoleNameHelper.AdminName)]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> Edit(EditUserViewModel viewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = await UserManager.Users.FirstOrDefaultAsync(x => x.Id == viewModel.UserId);
+                user.FirstName = viewModel.FirstName;
+                user.LastName = viewModel.LastName;
+                user.PhoneNumber = viewModel.PhoneNumber;
+                user.UserName = viewModel.UserName;
+                user.Email = viewModel.Email;
+                user.DateModified = DateTime.UtcNow;
+                user.ModifiedBy = RoleNameHelper.AdminName;
+
+                var currentRoleId = user.Roles.FirstOrDefault().RoleId;
+                if (!currentRoleId.Equals(viewModel.RoleId))
+                {
+                    using (var context = new ApplicationDbContext())
+                    {
+                        var currentRoleName = context.Roles.FirstOrDefault(x => x.Id == currentRoleId).Name;
+                        var newRoleName = context.Roles.FirstOrDefault(x => x.Id == viewModel.RoleId).Name;
+                        await UserManager.RemoveFromRoleAsync(user.Id, currentRoleName);
+                        await UserManager.AddToRoleAsync(user.Id, newRoleName);
+                    }
+                }
+
+                await UserManager.UpdateAsync(user);
+                return RedirectToAction("Index");
+            }
+            return View(viewModel);
+        }
+
+        [HttpGet]
+        [Authorize(Roles = RoleNameHelper.AdminName)]
+        public ActionResult Create()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [Authorize(Roles = RoleNameHelper.AdminName)]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> Create(CreateUserViewModel viewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = new ApplicationUser
+                {
+                    UserName = viewModel.UserName,
+                    Email = viewModel.Email,
+                    FirstName = viewModel.FirstName,
+                    LastName = viewModel.LastName,
+                    DateCreated = DateTime.UtcNow
+                };
+                var result = await UserManager.CreateAsync(user, viewModel.Password);
+
+                if (result.Succeeded)
+                {
+                    await UserManager.AddToRoleAsync(user.Id, viewModel.RoleName);
+                    return RedirectToAction("Index", "Account");
+                }
+                AddErrors(result);
+            }
+            return View(viewModel);
         }
 
         protected override void Dispose(bool disposing)

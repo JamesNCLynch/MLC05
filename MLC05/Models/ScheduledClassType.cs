@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 using System.Web.WebPages.Html;
@@ -30,5 +31,8 @@ namespace MLC05.Models
             Violet,
             YellowGreen
         }
+        public int Difficulty { get; set; }
+        [MaxLength(500)]
+        public string Description { get; set; }
     }
 }

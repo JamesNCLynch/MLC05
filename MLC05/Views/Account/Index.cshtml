@@ -1,0 +1,64 @@
+﻿@model IEnumerable<MLC05.Models.ApplicationUser>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+
+<li class="dropdown">
+    @Html.Label("Filter by role", new { @class = "control-label col-md-2" })
+    <a class="dropdown-toggle" data-toggle="dropdown" href="#">Filter by role<span class="caret"></span></a>
+    <ul class="dropdown-menu">
+        <li>@Html.ActionLink("Show all", "Index", new { role = "" })</li>
+        @{
+            var menu = MLC05.Models.RolesMenuViewModel.GetRoles();
+            if (menu != null && menu.Any())
+            {
+                foreach (var item in menu)
+                {
+                    <li>@Html.ActionLink($"{item.Name}", "Index", new { role = item.Id })</li>
+                }
+            }
+        }
+    </ul>
+</li>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.ActionLink("Username", "Index", new { sortOrder = ViewBag.NameSortParm })
+        </th>
+        <th>
+            @Html.ActionLink("Joined", "Index", new { sortOrder = ViewBag.DateSortParm })
+        </th>
+        <th>
+            @Html.ActionLink("RoleId", "Index", new { sortOrder = ViewBag.RoleSortParm })
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.UserName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DateCreated)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Roles.FirstOrDefault().RoleId)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { userId = item.Id }) |
+            @Html.ActionLink("Details", "Details", new { userId = item.Id }) |
+            @Html.ActionLink("Delete", "Delete", new { userId = item.Id })
+        </td>
+    </tr>
+}
+
+</table>

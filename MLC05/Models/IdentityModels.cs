@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -20,6 +21,12 @@ namespace MLC05.Models
 
         public virtual ICollection<ClassAttendee> ClassAttendees { get; set; }
         public virtual ICollection<ScheduledClass> ScheduledClasses { get; set; }
+        public DateTime? DateCreated { get; set; }
+        public DateTime? DateModified { get; set; }
+        public string ModifiedBy { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+
     }
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>

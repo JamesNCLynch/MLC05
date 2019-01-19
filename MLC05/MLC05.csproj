@@ -218,6 +218,14 @@
     <Compile Include="Migrations\201901071818472_ScheduledClassesRequireInstructor.Designer.cs">
       <DependentUpon>201901071818472_ScheduledClassesRequireInstructor.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201901132126371_ExtendClassType.cs" />
+    <Compile Include="Migrations\201901132126371_ExtendClassType.Designer.cs">
+      <DependentUpon>201901132126371_ExtendClassType.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201901161653563_ExtendApplicationUser.cs" />
+    <Compile Include="Migrations\201901161653563_ExtendApplicationUser.Designer.cs">
+      <DependentUpon>201901161653563_ExtendApplicationUser.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ClassAttendee.cs" />
@@ -225,8 +233,11 @@
     <Compile Include="Models\ClassTimetableGridItemViewModel.cs" />
     <Compile Include="Models\ClassTimetableGridViewModel.cs" />
     <Compile Include="Models\ClassTimetableViewModel.cs" />
+    <Compile Include="Models\CreateUserViewModel.cs" />
+    <Compile Include="Models\EditUserViewModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\RolesMenuViewModel.cs" />
     <Compile Include="Models\ScheduledClass.cs" />
     <Compile Include="Models\ScheduledClassType.cs" />
     <Compile Include="Models\ScheduledClassTypeMenuViewModel.cs" />
@@ -409,6 +420,9 @@
     <Content Include="Views\ClassTimetable\Edit.cshtml" />
     <Content Include="Views\ClassTimetable\Index.cshtml" />
     <Content Include="Views\Shared\_classTypeMenuLayout.cshtml" />
+    <Content Include="Views\Account\Index.cshtml" />
+    <Content Include="Views\Account\Edit.cshtml" />
+    <Content Include="Views\Account\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -447,6 +461,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201901071818472_ScheduledClassesRequireInstructor.resx">
       <DependentUpon>201901071818472_ScheduledClassesRequireInstructor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901132126371_ExtendClassType.resx">
+      <DependentUpon>201901132126371_ExtendClassType.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901161653563_ExtendApplicationUser.resx">
+      <DependentUpon>201901161653563_ExtendApplicationUser.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

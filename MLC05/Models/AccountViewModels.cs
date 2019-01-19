@@ -48,10 +48,12 @@ namespace MLC05.Models
 
     public class LoginViewModel
     {
-        [Required]
         [Display(Name = "Email")]
         [EmailAddress]
         public string Email { get; set; }
+
+        [Display(Name = "Membership #")]
+        public string UserName { get; set; }
 
         [Required]
         [DataType(DataType.Password)]
@@ -68,6 +70,19 @@ namespace MLC05.Models
         [EmailAddress]
         [Display(Name = "Email")]
         public string Email { get; set; }
+
+        [Required]
+        [Display(Name = "Username")]
+        public string UserName { get; set; }
+
+        [Required]
+        [Display(Name = "First name")]
+        public string FirstName { get; set; }
+
+        [Required]
+        [Display(Name = "Surname")]
+        public string LastName { get; set; }
+
 
         [Required]
         [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]

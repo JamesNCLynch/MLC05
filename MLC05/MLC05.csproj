@@ -183,6 +183,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ClassAttendanceController.cs" />
     <Compile Include="Controllers\ClassTimetableController.cs" />
+    <Compile Include="Controllers\HolidayController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\ScheduledClassController.cs" />
@@ -235,6 +236,10 @@
     <Compile Include="Migrations\201901191148348_AddClassAttendance.Designer.cs">
       <DependentUpon>201901191148348_AddClassAttendance.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201901202016495_AddHolidays.cs" />
+    <Compile Include="Migrations\201901202016495_AddHolidays.Designer.cs">
+      <DependentUpon>201901202016495_AddHolidays.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ClassAttendance.cs" />
@@ -246,6 +251,7 @@
     <Compile Include="Models\ClassTimetableViewModel.cs" />
     <Compile Include="Models\CreateUserViewModel.cs" />
     <Compile Include="Models\EditUserViewModel.cs" />
+    <Compile Include="Models\Holidays.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\RolesMenuViewModel.cs" />
@@ -440,6 +446,11 @@
     <Content Include="Views\ClassAttendance\Details.cshtml" />
     <Content Include="Views\ClassAttendance\Edit.cshtml" />
     <Content Include="Views\ClassAttendance\Index.cshtml" />
+    <Content Include="Views\Holiday\Create.cshtml" />
+    <Content Include="Views\Holiday\Delete.cshtml" />
+    <Content Include="Views\Holiday\Details.cshtml" />
+    <Content Include="Views\Holiday\Edit.cshtml" />
+    <Content Include="Views\Holiday\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -490,6 +501,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201901191148348_AddClassAttendance.resx">
       <DependentUpon>201901191148348_AddClassAttendance.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901202016495_AddHolidays.resx">
+      <DependentUpon>201901202016495_AddHolidays.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

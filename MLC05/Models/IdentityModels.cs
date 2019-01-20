@@ -42,6 +42,7 @@ namespace MLC05.Models
         public virtual DbSet<ClassTimetable> ClassTimetable { get; set; }
 
         public virtual DbSet<IdentityUserRole> UserRoles { get; set; }
+        public virtual DbSet<Holidays> Holiday { get; set; }
 
         public static ApplicationDbContext Create()
         {

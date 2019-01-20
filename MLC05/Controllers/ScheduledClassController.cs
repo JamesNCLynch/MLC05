@@ -78,7 +78,7 @@ namespace MLC05.Controllers
         {
             var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(_db));
 
-            var instructorRoleId = _db.Roles.FirstOrDefault(r => r.Name == RoleNameHelper.AdminName)?.Id;
+            var instructorRoleId = _db.Roles.FirstOrDefault(r => r.Name == RoleNameHelper.InstructorName)?.Id;
             var instructors = userManager.Users.Where(x => x.Roles.Any(s => s.RoleId == instructorRoleId)).ToList();
 
             var classType = _db.ScheduledClassTypes.FirstOrDefault(x => x.Name == type);

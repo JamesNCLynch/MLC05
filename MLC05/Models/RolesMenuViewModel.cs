@@ -16,6 +16,4 @@ namespace MLC05.Models
             return context.Roles.ToList();
         }
     }
-
-
 }

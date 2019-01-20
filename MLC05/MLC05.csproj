@@ -181,6 +181,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\ClassAttendanceController.cs" />
     <Compile Include="Controllers\ClassTimetableController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -226,9 +227,19 @@
     <Compile Include="Migrations\201901161653563_ExtendApplicationUser.Designer.cs">
       <DependentUpon>201901161653563_ExtendApplicationUser.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201901191146140_DropClassAttendee.cs" />
+    <Compile Include="Migrations\201901191146140_DropClassAttendee.Designer.cs">
+      <DependentUpon>201901191146140_DropClassAttendee.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201901191148348_AddClassAttendance.cs" />
+    <Compile Include="Migrations\201901191148348_AddClassAttendance.Designer.cs">
+      <DependentUpon>201901191148348_AddClassAttendance.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\ClassAttendee.cs" />
+    <Compile Include="Models\ClassAttendance.cs" />
+    <Compile Include="Models\ClassAttendanceDetailsViewModel.cs" />
+    <Compile Include="Models\ClassAttendanceViewModel.cs" />
     <Compile Include="Models\ClassTimetable.cs" />
     <Compile Include="Models\ClassTimetableGridItemViewModel.cs" />
     <Compile Include="Models\ClassTimetableGridViewModel.cs" />
@@ -242,6 +253,7 @@
     <Compile Include="Models\ScheduledClassType.cs" />
     <Compile Include="Models\ScheduledClassTypeMenuViewModel.cs" />
     <Compile Include="Models\ScheduledClassViewModel.cs" />
+    <Compile Include="Models\UpcomingClassesViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -423,6 +435,11 @@
     <Content Include="Views\Account\Index.cshtml" />
     <Content Include="Views\Account\Edit.cshtml" />
     <Content Include="Views\Account\Create.cshtml" />
+    <Content Include="Views\ClassAttendance\Create.cshtml" />
+    <Content Include="Views\ClassAttendance\Delete.cshtml" />
+    <Content Include="Views\ClassAttendance\Details.cshtml" />
+    <Content Include="Views\ClassAttendance\Edit.cshtml" />
+    <Content Include="Views\ClassAttendance\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -467,6 +484,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201901161653563_ExtendApplicationUser.resx">
       <DependentUpon>201901161653563_ExtendApplicationUser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901191146140_DropClassAttendee.resx">
+      <DependentUpon>201901191146140_DropClassAttendee.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901191148348_AddClassAttendance.resx">
+      <DependentUpon>201901191148348_AddClassAttendance.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

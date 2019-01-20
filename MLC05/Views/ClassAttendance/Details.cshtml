@@ -1,0 +1,59 @@
+﻿@model MLC05.Models.ClassAttendance
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div class="col-md-12">
+    <h4>ClassAttendance</h4>
+    <hr />
+    @{
+        var details = MLC05.Models.ClassAttendanceDetailsViewModel.GetClassTypeDetails(Model.ScheduledClasses.ScheduledClassType.Id);
+        var difficulty = details.Difficulty;
+        <dl class="dl-horizontal col-md-8">
+            <dt>
+                Class:
+            </dt>
+            <dd>
+                @Model.ScheduledClasses.ScheduledClassType.Name
+            </dd>
+            <dt>
+                Class start time:
+            </dt>
+            <dd>
+                @Model.ScheduledClasses.ClassStartTime
+            </dd>
+            <dt>
+                Description:
+            </dt>
+            <dd>
+                @details.Description
+            </dd>
+        </dl>
+        <div class="col-md-8">
+
+            <div class="progress">
+                <div class="progress-bar" role="progressbar" aria-valuenow=@difficulty aria-valuemin="0" aria-valuemax="100" style="width: @difficulty%">
+                    Difficulty @difficulty%
+                </div>
+            </div>
+        </div>
+    }
+
+    <dl class="dl-horizontal col-md-8">
+        <dt>
+            @Html.DisplayNameFor(model => model.EnrolledDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EnrolledDate)
+        </dd>
+    </dl>
+
+</div>
+
+<p>
+    @Html.ActionLink("Back to List", "Index")
+</p>

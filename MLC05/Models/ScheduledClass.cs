@@ -14,7 +14,7 @@ namespace MLC05.Models
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime ClassStartTime { get; set; }
         public virtual ScheduledClassType ScheduledClassType  { get; set; }
-        public virtual ICollection<ClassAttendee> ClassAttendees { get; set; }
+        public virtual ICollection<ClassAttendance> ClassAttendances { get; set; }
         [Required]
         public virtual ApplicationUser Instructor { get; set; }
         public bool IsCancelled { get; set; }

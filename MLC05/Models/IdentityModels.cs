@@ -19,7 +19,7 @@ namespace MLC05.Models
             return userIdentity;
         }
 
-        public virtual ICollection<ClassAttendee> ClassAttendees { get; set; }
+        public virtual ICollection<ClassAttendance> ClassAttendances { get; set; }
         public virtual ICollection<ScheduledClass> ScheduledClasses { get; set; }
         public DateTime? DateCreated { get; set; }
         public DateTime? DateModified { get; set; }
@@ -36,7 +36,7 @@ namespace MLC05.Models
         {
         }
 
-        public virtual DbSet<ClassAttendee> ClassAttendees { get; set; }
+        public virtual DbSet<ClassAttendance> ClassAttendances { get; set; }
         public virtual DbSet<ScheduledClass> ScheduledClasses { get; set; }
         public virtual DbSet<ScheduledClassType> ScheduledClassTypes { get; set; }
         public virtual DbSet<ClassTimetable> ClassTimetable { get; set; }

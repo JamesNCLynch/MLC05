@@ -25,12 +25,14 @@
                     {
                         <li>@Html.ActionLink("Class Types", "Index", "ScheduledClassTypes")</li>
                         <li>@Html.ActionLink("Classes", "Index", "ScheduledClass")</li>
-                        <li>@Html.ActionLink("Timetable", "Index", "ClassTimetable")</li>
+                        <li>@Html.ActionLink("Edit imetable", "Index", "ClassTimetable")</li>
                     }
-                    else
+                    else if (User.IsInRole(MLC05.Helpers.RoleNameHelper.AttendeeName))
                     {
-                        <li>@Html.ActionLink("About", "About", "Home")</li>
-                        <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                        <li>@Html.ActionLink("Sign up for class", "Index", "ClassAttendance")</li>
+                        <li>@Html.ActionLink("View timetable", "Index", "ClassTimetable")</li>
+                        @*<li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                        <li>@Html.ActionLink("Contact", "Contact", "Home")</li>*@
                     }
                     <li class="dropdown">
                         <a class="dropdown-toggle" data-toggle="dropdown" href="#">Classes<span class="caret"></span></a>

@@ -29,9 +29,10 @@ namespace MLC05.Controllers
 
             var timetabledClasses = await _db.ClassTimetable.Include("ScheduledClassType").ToListAsync();
             var scheduledClasses = await _db.ScheduledClasses.ToListAsync();
+            var holidays = await _db.Holiday.Where(x => x.HolidayDate > DateTime.UtcNow).Select(date => date.HolidayDate).ToListAsync();
             var upcomingScheduledClassesRequiringCreation = new List<ScheduledClass>();
 
-            for (var dayOffset = 1; dayOffset < 7; dayOffset++)
+            for (var dayOffset = 1; dayOffset < 14; dayOffset++)
             {
                 for (var hour = 7; hour < 22; hour++)
                 {
@@ -39,7 +40,10 @@ namespace MLC05.Controllers
                     {
                         var timetableSlotTime = new DateTime(now.Year, now.Month, now.Day, hour, 0, 0).AddDays(dayOffset);
                         var timetabledClass = timetabledClasses.FirstOrDefault(tc => tc.Weekday == timetableSlotTime.DayOfWeek && tc.StartTime.Hour == timetableSlotTime.Hour);
-                        if (timetabledClass != null)
+
+                        var classFallsOnHoliday = holidays.Select(x => x.Date).Contains(timetableSlotTime.Date);
+
+                        if (timetabledClass != null && !classFallsOnHoliday)
                         {
                             upcomingScheduledClassesRequiringCreation.Add(new ScheduledClass()
                             {
@@ -50,10 +54,6 @@ namespace MLC05.Controllers
                     }
                 }
             }
-
-            // does not exclude when a scheduled class exists in the timetable slot
-
-            // also need to create instructor accounts
 
             return View(upcomingScheduledClassesRequiringCreation.OrderBy(x => x.ClassStartTime).ToList());
         }
